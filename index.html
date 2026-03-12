@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Charging Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-slate-100 to-slate-200 min-h-screen flex flex-col items-center justify-center p-4">
+
+    <!-- Main Calculator Card -->
+    <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-2xl w-full max-w-lg border border-slate-100 z-10">
+
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                <span class="text-blue-500">⚡</span> เวลาชาร์จ EV
+            </h1>
+            <button id="btnReset"
+                class="text-sm text-slate-400 hover:text-red-500 transition font-medium px-3 py-1 rounded-md hover:bg-red-50">
+                รีเซ็ตค่า
+            </button>
+        </div>
+
+        <!-- Input Section -->
+        <div class="grid grid-cols-1 gap-5 mb-6">
+            <!-- (โค้ด Input ส่วนเดิมทั้งหมด ยกมาใส่ตรงนี้ได้เลย) -->
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-1.5">ความจุแบตเตอรี่</label>
+                <div class="relative">
+                    <input type="number" id="batteryCapacity" step="0.01" min="0"
+                        class="w-full p-3 pr-12 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none transition text-slate-800 font-semibold">
+                    <span
+                        class="absolute right-4 top-3.5 text-slate-400 text-sm font-medium pointer-events-none">kWh</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5">% เริ่มชาร์จ</label>
+                    <div class="relative">
+                        <input type="number" id="startPercent" min="0" max="100"
+                            class="w-full p-3 pr-8 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none text-slate-800 font-semibold transition">
+                        <span
+                            class="absolute right-4 top-3.5 text-slate-400 text-sm font-medium pointer-events-none">%</span>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5">% เป้าหมาย</label>
+                    <div class="relative">
+                        <input type="number" id="targetPercent" min="0" max="100"
+                            class="w-full p-3 pr-8 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none text-slate-800 font-semibold transition">
+                        <span
+                            class="absolute right-4 top-3.5 text-slate-400 text-sm font-medium pointer-events-none">%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5">กำลังชาร์จ</label>
+                    <div class="relative">
+                        <input type="number" id="chargingPower" step="0.1" min="0"
+                            class="w-full p-3 pr-10 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none text-slate-800 font-semibold transition">
+                        <span
+                            class="absolute right-4 top-3.5 text-slate-400 text-sm font-medium pointer-events-none">kW</span>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5">สูญเสีย (Loss)</label>
+                    <div class="relative">
+                        <input type="number" id="lossPercent" min="0" max="99"
+                            class="w-full p-3 pr-8 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none text-slate-800 font-semibold transition">
+                        <span
+                            class="absolute right-4 top-3.5 text-slate-400 text-sm font-medium pointer-events-none">%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="border-slate-100 border-t-2 my-6">
+
+        <!-- Output Section -->
+        <div class="space-y-3">
+            <div class="flex justify-between items-center text-sm p-2 rounded-lg hover:bg-slate-50 transition">
+                <span class="text-slate-500 font-medium">1. % ที่ต้องชาร์จเพิ่ม:</span>
+                <span id="outputDiff" class="font-bold text-slate-800">0%</span>
+            </div>
+            <div class="flex justify-between items-center text-sm p-2 rounded-lg hover:bg-slate-50 transition">
+                <span class="text-slate-500 font-medium">2. พลังงานเข้าแบตจริง:</span>
+                <span id="outputEnergyToBat" class="font-bold text-slate-800">0 kWh</span>
+            </div>
+            <div class="flex justify-between items-center text-sm p-2 rounded-lg hover:bg-slate-50 transition">
+                <span class="text-slate-500 font-medium">3. พลังงานจากปลั๊ก <span class="text-xs text-slate-400">(รวม
+                        Loss)</span>:</span>
+                <span id="outputEnergyWall" class="font-bold text-slate-800">0 kWh</span>
+            </div>
+            <div class="flex justify-between items-center text-sm p-2 rounded-lg hover:bg-slate-50 transition">
+                <span class="text-slate-500 font-medium">4. จำนวนชั่วโมง <span
+                        class="text-xs text-slate-400">(ทศนิยม)</span>:</span>
+                <span id="outputHours" class="font-bold text-slate-800">0 ชม.</span>
+            </div>
+
+            <!-- Main Result -->
+            <div
+                class="bg-gradient-to-r from-blue-500 to-blue-600 p-5 rounded-2xl shadow-lg shadow-blue-500/30 mt-6 text-center text-white transform transition hover:scale-[1.02]">
+                <p class="text-blue-100 text-sm font-medium mb-1 tracking-wide">เวลาที่ต้องตั้ง (ชั่วโมง : นาที)</p>
+                <p id="outputTimeFormatted" class="text-5xl font-bold tracking-tight">0:00</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- ADVERTISEMENT SECTION (ส่วนพื้นที่โฆษณา) -->
+    <!-- ========================================== -->
+    <div class="w-full max-w-lg mt-4 text-center">
+        <span class="text-[10px] text-slate-400 uppercase tracking-wider mb-1 block">Advertisement</span>
+
+        <!-- กล่องสำหรับใส่โฆษณา -->
+        <div
+            class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden flex items-center justify-center min-h-[100px] w-full relative">
+
+            <!-- กรณีที่ยังไม่ได้ใส่ Script โฆษณา จะแสดงข้อความนี้ -->
+            <p class="text-slate-400 text-sm">พื้นที่โฆษณา (Ad Slot)<br><span class="text-xs">Responsive: 300x250 หรือ
+                    320x50</span></p>
+
+            <!-- 
+            วิธีใช้งาน: ลบ <p> ด้านบนออก แล้วนำ Script ของ AdSense / MGID มาวางตรงนี้
+            ตัวอย่างของ AdSense:
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-xxxxxxxxxxxx"
+                 data-ad-slot="xxxxxxxxx"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            -->
+
+        </div>
+    </div>
+    <!-- ========================================== -->
+
+    <script src="./js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+body {
+    font-family: 'Sarabun', sans-serif;
+}
+
+.btn-save {
+    border: solid 1px black;
+    padding: 2px;
+    background-color: dodgerblue;
+    color: white;
+}
