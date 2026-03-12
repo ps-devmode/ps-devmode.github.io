@@ -42,7 +42,6 @@
 
         <!-- Input Section -->
         <div class="grid grid-cols-1 gap-5 mb-6">
-            <!-- (โค้ด Input ส่วนเดิมทั้งหมด ยกมาใส่ตรงนี้ได้เลย) -->
             <div>
                 <label class="block text-sm font-semibold text-slate-700 mb-1.5">ความจุแบตเตอรี่</label>
                 <div class="relative">
@@ -119,6 +118,42 @@
                 <span id="outputHours" class="font-bold text-slate-800">0 ชม.</span>
             </div>
 
+            <!-- ค่าไฟโดยประมาณ (Cost Estimation) -->
+            <div class="mt-5 pt-4 border-t-2 border-slate-100">
+                <h3 class="text-sm font-semibold text-slate-700 mb-3 flex items-center gap-2">
+                    <span class="text-green-500">💸</span> ประมาณการค่าไฟ (บาท/ครั้ง)
+                </h3>
+                <div class="grid grid-cols-3 gap-3 text-center">
+                    <!-- MEA Card -->
+                    <div
+                        class="bg-orange-50/50 p-2.5 rounded-xl border border-orange-100 transition hover:bg-orange-50">
+                        <div class="text-[10px] text-orange-600 font-bold mb-1 uppercase tracking-wide">นครหลวง (MEA)
+                        </div>
+                        <div class="text-sm font-bold text-slate-800" id="costMEA">0.00 ฿</div>
+                        <div class="text-[9px] text-slate-500 mt-0.5">ขั้นบันไดสูงสุด</div>
+                    </div>
+                    <!-- PEA Card -->
+                    <div
+                        class="bg-purple-50/50 p-2.5 rounded-xl border border-purple-100 transition hover:bg-purple-50">
+                        <div class="text-[10px] text-purple-600 font-bold mb-1 uppercase tracking-wide">ภูมิภาค (PEA)
+                        </div>
+                        <div class="text-sm font-bold text-slate-800" id="costPEA">0.00 ฿</div>
+                        <div class="text-[9px] text-slate-500 mt-0.5">ขั้นบันไดสูงสุด</div>
+                    </div>
+                    <!-- TOU Card -->
+                    <div
+                        class="bg-emerald-50/50 p-2.5 rounded-xl border border-emerald-100 transition hover:bg-emerald-50">
+                        <div class="text-[10px] text-emerald-600 font-bold mb-1 uppercase tracking-wide">TOU (Off-Peak)
+                        </div>
+                        <div class="text-sm font-bold text-slate-800" id="costTOU">0.00 ฿</div>
+                        <div class="text-[9px] text-slate-500 mt-0.5">ประหยัดสุด</div>
+                    </div>
+                </div>
+                <p class="text-[10px] text-slate-400 mt-3 text-center">
+                    * ประเมินจากเรทส่วนเพิ่ม (Marginal Unit) รวม Ft และ VAT 7%
+                </p>
+            </div>
+
             <!-- Main Result -->
             <div
                 class="bg-gradient-to-r from-blue-500 to-blue-600 p-5 rounded-2xl shadow-lg shadow-blue-500/30 mt-6 text-center text-white transform transition hover:scale-[1.02]">
@@ -137,31 +172,14 @@
         <!-- กล่องสำหรับใส่โฆษณา -->
         <div
             class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden flex items-center justify-center min-h-[100px] w-full relative">
-
-            <!-- กรณีที่ยังไม่ได้ใส่ Script โฆษณา จะแสดงข้อความนี้ -->
-            <!-- <p class="text-slate-400 text-sm">พื้นที่โฆษณา (Ad Slot)<br><span class="text-xs">Responsive: 300x250 หรือ
-                    320x50</span></p> -->
             <script async
                 src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4066189350561642"
                 crossorigin="anonymous"></script>
-
-            <!-- 
-            วิธีใช้งาน: ลบ <p> ด้านบนออก แล้วนำ Script ของ AdSense / MGID มาวางตรงนี้
-            ตัวอย่างของ AdSense:
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-xxxxxxxxxxxx"
-                 data-ad-slot="xxxxxxxxx"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-            -->
-
         </div>
     </div>
     <!-- ========================================== -->
 
-    <script src="./js/script.js"></script>
+    <script src="./js/script.obfuscated.js"></script>
 </body>
 
 </html>
