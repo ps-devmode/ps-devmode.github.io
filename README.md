@@ -8,8 +8,6 @@
 
 เว็บแอปพลิเคชันสำหรับคำนวณเวลาที่ต้องใช้ในการชาร์จรถยนต์ไฟฟ้า (EV) ช่วยให้ผู้ใช้งานสามารถตั้งเวลาชาร์จไฟ (Scheduled Charging) ได้อย่างแม่นยำ พร้อมระบบบันทึกค่าอัตโนมัติ และ UI/UX ที่ทันสมัยใช้งานง่ายบนทุกขนาดหน้าจอ
 
-[👉 **ลองใช้งาน Demo ได้ที่นี่**] (#ใส่ลิงก์_GitHub_Pages_หรือ_Hosting_ของคุณที่นี่)
-
 ---
 
 ## ✨ Features (จุดเด่นของโปรเจกต์)
@@ -34,7 +32,3 @@
 ## 🚀 Getting Started (วิธีการติดตั้งและใช้งาน)
 
 เนื่องจากโปรเจกต์นี้เขียนด้วย Vanilla JavaScript และใช้ Tailwind แบบ CDN คุณจึงไม่ต้องลง Node.js หรือรัน Build Process ใดๆ สามารถเปิดใช้งานได้ทันที!
-
-1. **Clone Repository**
-   ```bash
-   git clone https://github.com/pattanapong-sen/evcharger.github.io.git
